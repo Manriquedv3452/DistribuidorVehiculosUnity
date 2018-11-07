@@ -173,16 +173,34 @@ public class lineGenerator : MonoBehaviour {
         newSelection();
     }
 
-    public void addVehicle(int carPosition)
+    public bool addVehicle(int carPosition)
     {
+        bool stateOperation = false;
+
+        if (vehicles[position, carPosition - 1] == false)
+        {
+            stateOperation = true;
+        }
+
         vehicles[position, carPosition - 1] = true;
         changeVehicles();
+
+        return stateOperation;
     }
 
-    public void deleteVehicle(int carPosition)
+    public bool deleteVehicle(int carPosition)
     {
+        bool stateOperation = false;
+
+        if (vehicles[position, carPosition - 1] == true)
+        {
+            stateOperation = true;
+        }
+
         vehicles[position, carPosition - 1] = false;
         changeVehicles();
+
+        return stateOperation;
     }
 
     public void selectElements()

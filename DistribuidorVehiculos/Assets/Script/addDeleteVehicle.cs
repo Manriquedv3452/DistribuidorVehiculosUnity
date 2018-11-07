@@ -8,11 +8,14 @@ public class addDeleteVehicle : MonoBehaviour {
     public int car;
     private GameObject lineControllerGenerator;
     private lineGenerator generator;
+    private AudioSource actionSound;
 
     // Use this for initialization
     void Start () {
         lineControllerGenerator = GameObject.Find("lineGenerator");
         generator = lineControllerGenerator.GetComponent<lineGenerator>();
+        actionSound = GetComponent<AudioSource>();
+        actionSound.Stop();
     }
 	
 	// Update is called once per frame
@@ -22,16 +25,22 @@ public class addDeleteVehicle : MonoBehaviour {
 
     void OnMouseDown()
     {
+        bool state = false;
         switch (type)
         {
             case "ADD":
-                generator.addVehicle(car);
+                state = generator.addVehicle(car);
                 break;
             case "DELETE":
-                generator.deleteVehicle(car);
+                state = generator.deleteVehicle(car);
                 break;
             default:
-                return;
+                break;
+        }
+
+        if (state)
+        {
+            actionSound.Play();
         }
     }
 }

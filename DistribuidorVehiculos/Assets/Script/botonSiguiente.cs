@@ -8,12 +8,15 @@ public class botonSiguiente : MonoBehaviour {
     public string type;
     private GameObject camera;
     private CameraController cameraCode;
+    private AudioSource audioButton;
 
     // Use this for initialization
     void Start()
     {
         camera = GameObject.Find("Main Camera");
         cameraCode = camera.GetComponent<CameraController>();
+        audioButton = GetComponent<AudioSource>();
+        audioButton.Stop();
     }
 
     // Update is called once per frame
@@ -24,6 +27,7 @@ public class botonSiguiente : MonoBehaviour {
     // When is pressed.
     void OnMouseDown()
     {
+        audioButton.Play();
         if (action == "BACK")
         {
             cameraCode.changeFirstScreen();

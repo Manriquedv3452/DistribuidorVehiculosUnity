@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour {
     private float limitLeft;
     private float limitRight;
     private float limitUp;
+    private AudioSource music;
 
     private int firstScreenDistance;
     private int finalScreenDistance;
@@ -19,6 +20,7 @@ public class CameraController : MonoBehaviour {
         lastScreen = false;
         firstScreenDistance = 57;
         finalScreenDistance = 75;
+        music = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -29,6 +31,7 @@ public class CameraController : MonoBehaviour {
         }
 	}
 
+    // Move the camera by pressing arrows.
     private void moveCamera()
     {
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
@@ -79,25 +82,29 @@ public class CameraController : MonoBehaviour {
         }
     }
 
+    // Set the limits of the camera.
     public void changeLastScreen()
     {
         expandableScreen(); // Let to the user administrate the camera.
         limitDown = transform.position.y;
         limitUp = transform.position.y + 30;
         limitLeft = transform.position.x;
-        limitRight = transform.position.x + 82;
+        limitRight = transform.position.x + 75;
     }
 
+    // We can move the camera with the arrows.
     public void expandableScreen()
     {
         lastScreen = true;
     }
 
+    // Change to the first Screen so ... you can't move the camera.
     public void changeFirstScreen()
     {
         lastScreen = false;
     }
 
+    /* Move the camera to the new screen or back. */
     public void camaraMuevete(string Movement, bool finalScreen)
     {
         float posX = transform.position.x;
@@ -108,6 +115,7 @@ public class CameraController : MonoBehaviour {
             if (finalScreen)
             {
                 posX += finalScreenDistance;
+                posY = limitDown;
             }
             else
             {
