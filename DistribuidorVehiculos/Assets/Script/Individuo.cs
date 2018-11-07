@@ -127,6 +127,7 @@ namespace DistribucionVehiculosGeneticos
             foreach (Linea l in this.lineas)
             {
                 l.RestablecerTiemporestante();
+                l.SetNumVehiculosAsignados(0);
             }
             foreach (Vehiculo v in this.vehiculos)
             {
@@ -219,7 +220,13 @@ namespace DistribucionVehiculosGeneticos
 
                 }
             }
- 
+
+            // Busca la linea con menor capacidad
+            Linea lineaConMenoCapacidad = this.GetLineaConMenorCapacidad();
+            int maximoValorPorLinea = lineaConMenoCapacidad.GetTiempoAtencion();
+            int rango = maximoValorPorLinea + 20;
+            this.LineasEnRango(rango);
+
         }
 
         /****************************************************************
@@ -242,14 +249,6 @@ namespace DistribucionVehiculosGeneticos
                 return;
             }
 
-
-            // se debe ver que cada linea esté en el rango
-            if (this.LineasEnRango(rango) == false)
-            {
-                this.fitness += punishment;
-            }
-
-
             // Verifico la equivalencia final 
             int mayorCargaPosible = lineaConMenoCapacidad.GetTiempoAtencion() - lineaConMenoCapacidad.GetTiempoRestante() + 20;
            // Console.WriteLine("La mayor carga es: " + mayorCargaPosible);
@@ -257,6 +256,10 @@ namespace DistribucionVehiculosGeneticos
             {
                 this.fitness = 0;
                 return;
+            }
+            else
+            {
+                this.fitness += this.punishment * 2;
             }
            
             this.fitness += punishment * 3;
@@ -300,7 +303,7 @@ namespace DistribucionVehiculosGeneticos
         }
 
 
-        private bool LineasEnRango(int rango)
+        private void LineasEnRango(int rango)
         {
             foreach (Linea l in this.lineas)
             {
@@ -317,12 +320,18 @@ namespace DistribucionVehiculosGeneticos
                             //v.SetLineaAsignada(l);
                             //l.RestarTiempo(v.GetTiempo());
                             //l.SetNumVehiculosAsignados(l.GetNumVehiculosAsignados() + 1);
-                            return false;
+
+                            if (l.GetTiempoRestante() - v.GetTiempo() >= 0)
+                            {
+                                v.SetLineaAsignada(l);
+
+                                l.RestarTiempo(v.GetTiempo());
+                                l.IncrementarVehiculos();
+                            }
                         }
                     }
                 }
             }
-            return true;
         }
 
 

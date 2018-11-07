@@ -8,6 +8,7 @@ namespace DistribucionVehiculosGeneticos
     public class AlgoritmoGenetico
     {
         private int numGeneraciones = 500;
+        private int generacionActual = 0;
         private Poblacion poblacion;
         private Random rnd = new Random();
 
@@ -24,6 +25,11 @@ namespace DistribucionVehiculosGeneticos
             this.poblacion = new Poblacion();
         }
 
+
+        public int getGeneracionActual()
+        {
+            return this.generacionActual;
+        }
   
         
         /******************************************************
@@ -55,7 +61,7 @@ namespace DistribucionVehiculosGeneticos
                     return this.poblacion.getBestIndividuo();
                 }
 
-
+                this.generacionActual++;
                 // Genera una nueva población 
                 //this.AplicarOperadoresGeneticos();
             }

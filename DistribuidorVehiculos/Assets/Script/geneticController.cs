@@ -72,6 +72,7 @@ public class geneticController : MonoBehaviour {
 
         AlgoritmoGenetico AG = new AlgoritmoGenetico(vehiculos, lineas);
         Individuo solucion = AG.IniciarGenetico();
+        Debug.Log("GENERACION #" + AG.getGeneracionActual() + "\n");
         Debug.Log(solucion.PrintStringIndividuo());
         // Vehiculos a la linea a la que pertenecen.
         List<Vehiculo> lista = solucion.GetVehiculos();

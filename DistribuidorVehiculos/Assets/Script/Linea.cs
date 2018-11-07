@@ -100,6 +100,7 @@ namespace DistribucionVehiculosGeneticos
         {
             this.tiempoRestante = this.tiempoRestanteInicial;
         }
+
     }
 }
 
