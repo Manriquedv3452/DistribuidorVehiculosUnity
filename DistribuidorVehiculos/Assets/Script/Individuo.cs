@@ -305,6 +305,7 @@ namespace DistribucionVehiculosGeneticos
 
         private void LineasEnRango(int rango)
         {
+            List<char> opciones;
             foreach (Linea l in this.lineas)
             {
                 foreach (Vehiculo v in this.vehiculos)
@@ -320,8 +321,8 @@ namespace DistribucionVehiculosGeneticos
                             //v.SetLineaAsignada(l);
                             //l.RestarTiempo(v.GetTiempo());
                             //l.SetNumVehiculosAsignados(l.GetNumVehiculosAsignados() + 1);
-
-                            if (l.GetTiempoRestante() - v.GetTiempo() >= 0)
+                            opciones = l.getTiposVehiculos();
+                            if (l.GetTiempoRestante() - v.GetTiempo() >= 0 && opciones.Contains(v.GetTipo()))
                             {
                                 v.SetLineaAsignada(l);
 
